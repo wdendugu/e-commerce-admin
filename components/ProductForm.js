@@ -52,7 +52,7 @@ export default function ProductForm ({
     }
 
     function updateImagesOrder(images) {
-        console.log(images)
+        setImages(images)
     }
 
     return (
@@ -71,12 +71,11 @@ export default function ProductForm ({
                         setList={updateImagesOrder}
                         className="flex flex-wrap gap-1"
                     >
-
-                    {!!images?.length && images.map (link => (
-                        <div key={link} className="h-24 ">
-                            <img src={link} alt="" className="rounded-lg" />
-                        </div>
-                    ))}
+                        {!!images?.length && images.map (link => (
+                            <div key={link} className="h-24 ">
+                                <img src={link} alt="" className="rounded-lg" />
+                            </div>
+                        ))}
                     </ReactSortable>
                     {isUploading && ( 
                     <div className="h-24 p-2 flex items-center">
