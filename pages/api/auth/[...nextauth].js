@@ -1,9 +1,11 @@
-import NextAuth from 'next-auth'
+import NextAuth, { getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../lib/mongodb"
 
-export default NextAuth({
+const adminEmails = ['elfelito125@gmail.com','felitoalbertoml@gmail.com']
+
+export const authOptions = {
   providers: [
     // OAuth authentication providers...
     GoogleProvider({
@@ -12,5 +14,25 @@ export default NextAuth({
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
-})
+  callbacks: {
+    session: ({token,session,user}) => {
+      if (adminEmails.includes(session?.user?.email)) {
+        return session
+      } else {
+        return false
+      }
+    }
+  }
+}
 
+export default NextAuth(authOptions)
+
+export async function isAdminRequest (req,res) {
+  const session = await getServerSession(req,res,authOptions)
+  
+  if (!adminEmails.includes(session?.user?.email)) {
+    res.status(401)
+    res.end()
+    throw "Sorry user not an admin, please login with admin user"
+  }
+}

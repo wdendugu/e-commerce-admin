@@ -1,11 +1,18 @@
+import { signOut } from "next-auth/react"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { Router, useRouter } from "next/router"
 
 export default Nav => {
 
 const inactiveLink = 'flex gap-1 p-1'
 const activeLink = inactiveLink+' bg-white text-blue-900 rounded-l-lg'
-const {pathname} = useRouter()
+const router = useRouter()
+const {pathname} = router
+
+async function logout() {
+    await router.push('/')
+    await signOut()
+}
 
 
 
@@ -26,6 +33,12 @@ const {pathname} = useRouter()
                 <Link href={'/categories'} className={pathname.includes("/categories") ? activeLink : inactiveLink}>Categories</Link>
                 <Link href={'/orders'} className={pathname.includes("/orders") ? activeLink : inactiveLink}>Orders</Link>
                 <Link href={'/settings'} className={pathname.includes("/settings") ? activeLink : inactiveLink}>Settings</Link>
+                <button 
+                    className={inactiveLink}
+                    onClick={() => logout()}
+                >
+                    Logout
+                </button>
             </nav>
         </aside>
   )
