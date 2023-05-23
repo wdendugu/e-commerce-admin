@@ -159,7 +159,7 @@ export default function Categories () {
                             />
                         <button 
                             type="button"
-                            className="btn-default"
+                            className="btn-red"
                             onClick={() => removeProperty(index)}
                             >
                             Remove
@@ -208,11 +208,11 @@ export default function Categories () {
                             <td>
                                 <button 
                                     onClick={() => editCategory(category)}
-                                    className="btn-primary mr-1"
+                                    className="btn-default mr-1"
                                 >
                                     Edit 
                                 </button>
-                                <button className="btn-primary" onClick={() => deleteCategory(category)} > 
+                                <button className="btn-red" onClick={() => deleteCategory(category)} > 
                                     Delete
                                 </button>
                             </td>
