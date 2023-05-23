@@ -5,7 +5,7 @@ import mime from "mime-types"
 import {  isAdminRequest } from "./auth/[...nextauth]"
 import {mongooseConnect} from '../../lib/mongoose'
 
-export default async function handle(req,res) {
+export default async function handler(req,res) {
     await mongooseConnect()
     await isAdminRequest(req,res)
     const form = new multiparty.Form()
