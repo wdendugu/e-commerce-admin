@@ -12,6 +12,13 @@ export default function OrdersPage () {
     },[])
     console.log(orders)
 
+    function formatDate (date) {
+        return new Date(date).toLocaleDateString("es-AR", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+    }
+     /* FALTA IMPLEMENTAR LOGICA SI ESTA PAGO O NO */
     return (
         <Layout>
             <h1>Orders</h1>
@@ -26,9 +33,20 @@ export default function OrdersPage () {
                 <tbody>
                     {orders.length && orders.map( order => 
                     <tr>
-                        <td>{order.createdAt}</td>
-                        <td>{order.name}</td>
-                        <td>{order.line_items.map(item => item.product_data)}</td>
+                        <td>{formatDate(order.createdAt)}</td>
+                        <td>{order.name}<br/>
+                            {order.streetAdress}, {order.city}<br/>
+                            CP:{order.postalCode}<br/>
+                            {order.country}
+                        </td>
+                        <td>
+                            {order.line_items.map(l => 
+                                <>
+                                {l.quantity} x {l.product_data.name} = ${l.price_data.unit_amount}<br/>
+
+                                </>
+                            )}
+                        </td>
                     </tr>
                 )}
                 </tbody>
