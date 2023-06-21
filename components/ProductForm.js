@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios"
 import { useRouter } from "next/router";
-import  Spinner  from "./Spinner";
+import { Spinner, SpinnerCenter } from "./Spinner";
 import {ReactSortable} from "react-sortablejs"
 
 export default function ProductForm ({
@@ -23,10 +23,12 @@ export default function ProductForm ({
     const [categories, setCategories] = useState([])
     const [goToProducts, setGoToProducts] = useState(false)
     const [isUploading, setIsUploading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     
     useEffect(() => {
-        axios.get ('/api/categories').then (result => {setCategories(result.data)})
+        setIsLoading(true)
+        axios.get ('/api/categories').then (result => {setCategories(result.data),setIsLoading(false)})
     }, [])
     
     async function saveProduct (event) {
@@ -92,6 +94,7 @@ export default function ProductForm ({
                     onChange={e => setTitle(e.target.value)}
                 />
                 <label>Category</label>
+                {isLoading && <SpinnerCenter/>}
                 <select 
                     value={category}
                     onChange={ev => setCategory(ev.target.value)}

@@ -1,16 +1,19 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { SpinnerTable } from "@/components/Spinner";
 
 export default function OrdersPage () {
     const [orders, setOrders] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(()=>{
+        setIsLoading(true)
         axios.get('/api/orders').then(response => {
             setOrders(response.data)
+            setIsLoading(false)
         })
     },[])
-    console.log(orders)
 
     function formatDate (date) {
         return new Date(date).toLocaleDateString("es-AR", {
@@ -18,6 +21,7 @@ export default function OrdersPage () {
             minute: "2-digit",
           })
     }
+
      /* FALTA IMPLEMENTAR LOGICA SI ESTA PAGO O NO */
     return (
         <Layout>
@@ -29,6 +33,7 @@ export default function OrdersPage () {
                         <th>Recipient</th>
                         <th>Products</th>
                     </tr>
+                    {isLoading && (<SpinnerTable col={3}/>)}
                 </thead>
                 <tbody>
                     {orders.length && orders.map( order => 

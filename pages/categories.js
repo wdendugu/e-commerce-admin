@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { SpinnerTable } from "@/components/Spinner";
 
 
 export default function Categories () {
@@ -11,13 +12,16 @@ export default function Categories () {
     const [parentCategory, setParentCategory] = useState('')
     const [categories, setCategories] = useState ([])
     const [properties, setProperties] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const MySwal = withReactContent(Swal)
 
 
     function getCategories () {
+        setIsLoading(true)
         axios.get('/api/categories').then (result => {
-            setCategories(result.data)
+            setCategories(result.data),
+            setIsLoading(false)
         })
     }
     
@@ -201,6 +205,7 @@ export default function Categories () {
                     </tr>
                 </thead>
                 <tbody>
+                    {isLoading && (<SpinnerTable col={3}/>)}
                     {categories?.length > 0 && categories.map (category => (
                         <tr>
                             <td>{category.name}</td>

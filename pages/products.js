@@ -3,12 +3,16 @@ import { EditIcon,DeleteIcon } from "@/utils/Icons";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect,useState } from "react";
+import { SpinnerTable } from "../components/Spinner"
 
 export default function Products () {
     const [products, setProducts] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     useEffect (()=> {
+        setIsLoading(true)
         axios.get ('/api/products').then(response =>
-        setProducts(response.data)
+        setProducts(response.data),
+        setIsLoading(false)
         )
     },[])
     return (
@@ -25,6 +29,7 @@ export default function Products () {
                     </tr>
                 </thead>
                 <tbody>
+                    {isLoading && (<SpinnerTable col={2}/>)}
                     {products.map (product => (
                         <tr key={product._id}>
                             <td>{product.title}</td>
