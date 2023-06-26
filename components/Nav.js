@@ -1,7 +1,7 @@
 import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { HomeIcon,ProductsIcon,CategoriesIcon,OrdersIcon,SettingsIcon,LogoutIcon } from "@/utils/Icons"
+import { HomeIcon,ProductsIcon,CategoriesIcon,OrdersIcon,SettingsIcon,LogoutIcon, AdminIcon } from "@/utils/Icons"
 import Logo from "./Logo"
 
 export default function Nav ({show}) {
@@ -29,6 +29,7 @@ async function logout() {
                 <Link href={'/products'} className={pathname.includes("/products") ? activeLink : inactiveLink}><ProductsIcon />Products</Link>
                 <Link href={'/categories'} className={pathname.includes("/categories") ? activeLink : inactiveLink}><CategoriesIcon/>Categories</Link>
                 <Link href={'/orders'} className={pathname.includes("/orders") ? activeLink : inactiveLink}><OrdersIcon/>Orders</Link>
+                <Link href={'/admins'} className={pathname.includes("/admins") ? activeLink : inactiveLink}><AdminIcon/>Admins</Link>
                 <Link href={'/settings'} className={pathname.includes("/settings") ? activeLink : inactiveLink}><SettingsIcon/>Settings</Link>
                 <button 
                     className={inactiveLink}
