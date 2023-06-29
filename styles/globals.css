@@ -59,3 +59,36 @@ table.basic tr td {
 table.basic a {
   @apply  px-4 rounded-sm inline-flex mx-1 items-center gap-1 text-sm py-1
 }
+
+/* Custom Elements */
+
+.stats-box {
+  @apply
+  bg-white shadow-md p-2 text-blue-800
+}
+
+.stats-box h3 {
+  @apply
+  uppercase text-gray-500 font-bold text-xs text-center m-0
+}
+
+.stats-box h4 {
+  @apply
+  text-sm text-gray-400 text-center
+}
+
+.stats-box div {
+  @apply
+  text-3xl text-center mt-1 font-bold
+}
+
+.stats-grid {
+  @apply
+  grid grid-cols-1 gap-4
+  md:grid-cols-3
+}
+
+.stat-desc {
+  @apply
+  text-sm
+}

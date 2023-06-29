@@ -1,21 +1,13 @@
+import HomeHeader from "@/components/HomeHeader"
+import HomeStats from "@/components/HomeStats"
 import Layout from "@/components/Layout"
-import {useSession} from "next-auth/react"
 
 export default function Home () {
 
-  const {data: session} = useSession()
-
   return (
     <Layout>
-      <div className="text-blue-900 flex justify-between">
-        <h2>Hello, {session?.user?.name}</h2>
-        <div className="flex gap-1 text-black rounded-lg overflow-hidden bg-gray-300">
-          <img src={session?.user?.image} alt="" className="w-6 h-6" />
-          <span className="px-2">
-          {session?.user?.name}
-          </span>
-        </div>
-      </div>
+      <HomeHeader/>
+      <HomeStats/>
     </Layout>
   )
 }
