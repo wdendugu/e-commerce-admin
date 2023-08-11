@@ -14,9 +14,6 @@ export default function Categories () {
     const [properties, setProperties] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    const MySwal = withReactContent(Swal)
-
-
     function getCategories () {
         setIsLoading(true)
         axios.get('/api/categories').then (result => {
@@ -131,7 +128,7 @@ export default function Categories () {
                     }>
                         <option value=''>No parent category</option>
                         {categories?.length > 0 && categories.map (category => (
-                            <option value={category._id}>{category.name}</option>
+                            <option value={category._id} key={category._id}>{category.name}</option>
                         ))} 
                     </select>
                 </div>
@@ -146,7 +143,7 @@ export default function Categories () {
                         Add new property
                     </button>
                     {properties.length > 0 && properties.map((property,index) => 
-                        <div className="flex gap-1 mb-2">
+                        <div className="flex gap-1 mb-2 " key={property._id}>
                             <input
                                 className="mb-0"
                                 type='text'
@@ -207,7 +204,7 @@ export default function Categories () {
                 <tbody>
                     {isLoading && (<SpinnerTable col={3}/>)}
                     {categories?.length > 0 && categories.map (category => (
-                        <tr>
+                        <tr key={category._id}>
                             <td>{category.name}</td>
                             <td>{category?.parent?.name}</td>
                             <td>

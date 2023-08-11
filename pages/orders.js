@@ -37,7 +37,7 @@ export default function OrdersPage () {
                 </thead>
                 <tbody>
                     {orders.length && orders.map( order => 
-                    <tr>
+                    <tr key={order._id}>
                         <td>{formatDate(order.createdAt)}</td>
                         <td>{order.name}<br/>
                             {order.streetAdress}, {order.city}<br/>
